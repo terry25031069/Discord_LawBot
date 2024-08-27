@@ -120,7 +120,8 @@ def CJfind(queryStr):
         cjNum = fetch_cj_numbers()
         CJArc = os.path.join(BASE_DIR, "res/CJArc")
         fetch_and_save_cj(cjNum, CJArc)
-        return CJfind(queryStr)
+        if queryNum in cjNum: return CJfind(queryStr)
+        else: return 'Z9999999'
     
 #調用 event 函式庫
 @client.event
@@ -177,7 +178,7 @@ async def on_message(message):
                 await message.channel.send("誒都，閣下的指令格式我解析有點問題誒QQ\n" + "可以輸入 !? 以獲得使用說明\n") 
                 print(e)
         if  respMessage == 'Z9999999':
-            await message.channel.send('誒都，找不到閣下的法條誒QQ\n搜尋冷門法條時，建議不要打法條簡稱喔！\n')
+            await message.channel.send('誒都，找不到閣下的法條或判決誒QQ\n搜尋冷門法條時，建議不要打法條簡稱喔！\n')
             return
         if len(respMessage): 
             respMessage = splitMsg(respMessage)
